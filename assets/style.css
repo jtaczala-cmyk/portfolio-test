@@ -5,23 +5,23 @@ html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--txt);font:400 16px/1.55 'IBM Plex Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 a{color:var(--teal)}
 img,svg{max-width:100%;display:block}
-.wrap{max-width:72rem;margin:0 auto;padding:0 20px}
+.wrap{max-width:72rem;margin:0 auto;padding:0 max(20px,env(safe-area-inset-right,0px)) 0 max(20px,env(safe-area-inset-left,0px))}
 .skip{position:absolute;left:-999px}.skip:focus{left:12px;top:12px;z-index:9;background:#fff;color:#000;padding:8px}
 /* top bar */
 .top{position:sticky;top:0;z-index:5;padding-top:env(safe-area-inset-top,0px);background:rgba(18,17,15,.86);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:60px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand{display:flex;align-items:center;gap:10px;min-height:44px;border-radius:10px;text-decoration:none;color:var(--ink)}
 .brand img{width:34px;height:34px}
 .brand span{font:600 21px/1 'Oswald',sans-serif;letter-spacing:.04em}
 .badge{display:inline-block;margin-left:2px;padding:4px 7px;border-radius:6px;background:var(--gold);color:#1a1405;font:600 11px/1 'Oswald',sans-serif;letter-spacing:.16em}
 .lang{display:flex;gap:4px;margin:0;padding:0;list-style:none}
-.lang a{display:block;min-width:42px;padding:8px 8px;text-align:center;border-radius:8px;font:600 13px/1 'Oswald',sans-serif;letter-spacing:.12em;color:var(--ink);text-decoration:none;border:1px solid rgba(255,255,255,.18)}
+.lang a{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:0 8px;text-align:center;border-radius:8px;font:600 13px/1 'Oswald',sans-serif;letter-spacing:.12em;color:var(--ink);text-decoration:none;border:1px solid rgba(255,255,255,.18)}
 .lang a[aria-current]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 /* intro */
 .intro{padding:44px 0 30px;background:radial-gradient(120% 90% at 85% -10%,rgba(225,29,42,.22),transparent 60%),radial-gradient(90% 70% at -10% 10%,rgba(45,212,191,.12),transparent 60%)}
 .k{font:500 12px/1 'Oswald',sans-serif;letter-spacing:.35em;text-transform:uppercase;color:var(--teal);margin:0 0 14px}
 h1{font:600 clamp(36px,9vw,64px)/1.02 'Oswald',sans-serif;color:var(--ink);margin:0 0 16px;letter-spacing:.01em}
-.lead{max-width:40rem;margin:0 0 22px;font-size:clamp(17px,4.4vw,20px);color:#d6d3d1}
+.lead{max-width:40rem;margin:0 0 10px;font-size:clamp(17px,4.4vw,20px);color:#d6d3d1}
 .lead b{color:var(--ink);font-weight:600}
 .pills{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
 .pills li{display:flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;background:var(--bg2);border:1px solid var(--line);font-size:14px;color:var(--ink)}
@@ -48,7 +48,9 @@ dl.meta dt{color:var(--mut)}dl.meta dd{margin:0;color:var(--ink)}
 .btn{flex:1 1 auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 20px;border-radius:12px;background:var(--red);border:1px solid var(--red);color:#fff;text-decoration:none;font:600 19px/1 'Oswald',sans-serif;letter-spacing:.05em;transition:transform .12s,filter .12s}
 .btn::after{content:"→"}
 .btn.alt{background:transparent;border-color:rgba(45,212,191,.6);color:var(--teal)}
-.btn:hover,.btn:focus-visible{transform:translateY(-1px);filter:brightness(1.08)}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.btn:active{transform:translateY(0) scale(.98);filter:brightness(.95)}
+.btn.alt:hover{background:rgba(45,212,191,.08)}
 .btn small{font:500 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.06em;opacity:.85}
 .soon{display:inline-flex;align-items:center;min-height:50px;padding:0 16px;border-radius:12px;border:1px dashed rgba(217,164,65,.6);color:var(--gold);font:600 17px/1 'Oswald',sans-serif;letter-spacing:.08em;text-transform:uppercase}
 /* share */
@@ -62,7 +64,28 @@ dl.meta dt{color:var(--mut)}dl.meta dd{margin:0;color:var(--ink)}
 .sbtn{display:flex;flex-wrap:wrap;gap:10px}
 .sbtn button{min-height:46px;padding:0 18px;border-radius:12px;border:1px solid rgba(45,212,191,.6);background:transparent;color:var(--teal);font:600 16px/1 'Oswald',sans-serif;letter-spacing:.05em;cursor:pointer}
 .sbtn button[hidden]{display:none}
+.sbtn button{transition:background .15s,transform .12s}.sbtn button:hover{background:rgba(45,212,191,.1)}.sbtn button:active{transform:scale(.98)}
 footer{border-top:1px solid var(--line);padding:28px 0 calc(env(safe-area-inset-bottom,0px) + 32px);color:var(--mut);font-size:13px}
 footer p{margin:0 0 10px;max-width:46rem}
 footer .copy{color:#d6d3d1}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+
+/* STOP sign brand mark */
+.brand .sign{width:36px;height:36px;flex:0 0 auto;filter:drop-shadow(0 2px 6px rgba(225,29,42,.35))}
+.lead.l2{margin-bottom:22px;color:var(--ink);font-weight:500}
+.hero-sign{width:clamp(88px,22vw,120px);margin:0 0 22px;transform-origin:50% 50%;animation:signIn .9s cubic-bezier(.2,.9,.25,1.15) .1s both}
+.hero-sign svg{width:100%;height:auto;aspect-ratio:1;filter:drop-shadow(0 10px 24px rgba(0,0,0,.45)) drop-shadow(0 0 22px rgba(225,29,42,.38))}
+@keyframes signIn{from{opacity:0;transform:scale(.55) rotate(-45deg)}60%{opacity:1}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.hero-sign{animation:none}}
+
+/* focus, motion, cards */
+a:focus-visible,button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.btn:focus-visible{outline-color:#fff;box-shadow:0 0 0 6px rgba(225,29,42,.35)}
+.lang a:hover{border-color:rgba(255,255,255,.45)}
+.game{transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+@media (hover:hover){.game:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.18);box-shadow:0 16px 40px rgba(0,0,0,.35)}}
+.intro .k,.intro h1,.intro .lead,.intro .pills{animation:fadeUp .6s ease both}
+.intro .k{animation-delay:.25s}.intro h1{animation-delay:.32s}.intro .lead{animation-delay:.4s}.intro .lead.l2{animation-delay:.46s}.intro .pills{animation-delay:.52s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.shot img{transition:transform .5s ease}
+@media (hover:hover){.game:hover .shot img{transform:scale(1.025)}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
